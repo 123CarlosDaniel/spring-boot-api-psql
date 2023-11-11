@@ -27,6 +27,5 @@ public class PersonDto {
     @NotBlank
     private String password;
 
-    @Null
     private List<ProductDto> products;
 }
