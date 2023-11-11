@@ -8,6 +8,7 @@ import com.cdcm.apirestpsql.service.interfaces.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -28,5 +29,10 @@ public class PersonServiceImp implements PersonService {
                         .collect(Collectors.toList()))
                 .build();
         return personRepository.save(person);
+    }
+
+    @Override
+    public Optional<Person> findPersonById(Long id) {
+        return personRepository.findById(id);
     }
 }
