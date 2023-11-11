@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -30,5 +32,15 @@ public class Person {
     @Column(unique = true)
     private String email;
     private String password;
+
+    @OneToMany(
+            fetch = FetchType.EAGER,
+            cascade = CascadeType.ALL
+    )
+    @JoinColumn(
+            name = "product_id",
+            referencedColumnName = "id"
+    )
+    private List<Product> products;
 
 }
