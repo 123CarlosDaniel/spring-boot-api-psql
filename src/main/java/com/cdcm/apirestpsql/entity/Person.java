@@ -38,7 +38,7 @@ public class Person {
             cascade = CascadeType.ALL
     )
     @JoinColumn(
-            name = "product_id",
+            name = "person_id",
             referencedColumnName = "id"
     )
     private List<Product> products;
