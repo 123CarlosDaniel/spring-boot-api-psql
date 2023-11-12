@@ -17,14 +17,14 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 public class PersonDto {
-    @NotBlank
+    @NotBlank(message = "Provide a name")
     private String name;
 
-    @Email
-    @NotBlank
+    @Email(message = "Provide a valid email")
+    @NotBlank(message = "Provide an email")
     private String email;
 
-    @NotBlank
+    @NotBlank(message = "Provide a password")
     private String password;
 
     private List<ProductDto> products;
