@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.Objects;
 
 @Data
 @AllArgsConstructor
@@ -43,4 +44,16 @@ public class Person {
     )
     private List<Product> products;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Person person = (Person) o;
+        return Objects.equals(name, person.name) && Objects.equals(email, person.email) && Objects.equals(password, person.password) ;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, email, password);
+    }
 }

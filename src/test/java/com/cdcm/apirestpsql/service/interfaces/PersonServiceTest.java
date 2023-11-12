@@ -1,5 +1,6 @@
 package com.cdcm.apirestpsql.service.interfaces;
 
+import com.cdcm.apirestpsql.dto.PersonDto;
 import com.cdcm.apirestpsql.entity.Person;
 import com.cdcm.apirestpsql.entity.Product;
 import com.cdcm.apirestpsql.repository.PersonRepository;
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.verify;
 
 @SpringBootTest
 class PersonServiceTest {
@@ -24,24 +26,42 @@ class PersonServiceTest {
     @MockBean
     private PersonRepository personRepository;
 
+    private Person person;
+
     @BeforeEach
     void setUp() {
         Product product1 = Product.builder()
                 .name("oil")
                 .price(BigDecimal.valueOf(10))
                 .build();
-        Product product2 = Product.builder()
-                .name("rice")
-                .price(BigDecimal.valueOf(5))
-                .build();
-        Person person = Person.builder()
+        person = Person.builder()
                 .id(1L)
                 .name("Pepe")
                 .email("pepe@gmail.com")
                 .password("123456")
-                .products(List.of(product1, product2))
+                .products(List.of(product1))
                 .build();
         Mockito.when(personRepository.findById(1L)).thenReturn(Optional.of(person));
+    }
+
+    @Test
+    public void createPersonWithoutProducts() {
+        PersonDto personDto = PersonDto.builder()
+                .name("Pepe")
+                .email("pepe@gmail.com")
+                .password("123456")
+                .build();
+        Person personToSave = Person.builder()
+                .name("Pepe")
+                .email("pepe@gmail.com")
+                .password("123456")
+                .build();
+        Mockito.when(personRepository.save(personToSave)).thenReturn(personToSave);
+
+        Person result = personService.createPerson(personDto);
+        assertEquals(personDto.getName(), result.getName());
+        assertEquals(personDto.getEmail(), result.getEmail());
+        verify(personRepository).save(personToSave);
     }
 
     @Test

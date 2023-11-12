@@ -8,6 +8,7 @@ import com.cdcm.apirestpsql.service.interfaces.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -22,11 +23,16 @@ public class PersonServiceImp implements PersonService {
                 .name(personDto.getName())
                 .email(personDto.getEmail())
                 .password(personDto.getPassword())
-                .products(personDto.getProducts().stream()
-                        .map(prod -> Product.builder()
-                                .price(prod.getPrice())
-                                .name(prod.getName()).build())
-                        .collect(Collectors.toList()))
+                .products(personDto.getProducts() != null ?
+                        (
+                        personDto.getProducts().stream()
+                                .map(prod -> Product.builder()
+                                        .price(prod.getPrice())
+                                        .name(prod.getName()).build())
+                                .collect(Collectors.toList())
+                        )
+                        :Collections.emptyList()
+                        )
                 .build();
         return personRepository.save(person);
     }
