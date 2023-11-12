@@ -26,15 +26,13 @@ class PersonServiceTest {
     @MockBean
     private PersonRepository personRepository;
 
-    private Person person;
-
     @BeforeEach
     void setUp() {
         Product product1 = Product.builder()
                 .name("oil")
                 .price(BigDecimal.valueOf(10))
                 .build();
-        person = Person.builder()
+        Person person = Person.builder()
                 .id(1L)
                 .name("Pepe")
                 .email("pepe@gmail.com")

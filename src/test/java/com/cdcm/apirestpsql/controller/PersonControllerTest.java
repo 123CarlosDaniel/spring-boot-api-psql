@@ -6,6 +6,7 @@ import com.cdcm.apirestpsql.entity.Person;
 import com.cdcm.apirestpsql.entity.Product;
 import com.cdcm.apirestpsql.service.interfaces.PersonService;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +20,9 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+@DisplayName("Person controller tests")
 @WebMvcTest(PersonController.class)
 class PersonControllerTest {
 
@@ -32,6 +33,7 @@ class PersonControllerTest {
     private PersonService personService;
 
     private Person person;
+    private final String url = "/api/v1/person";
 
     @BeforeEach
     void setUp() {
@@ -71,7 +73,7 @@ class PersonControllerTest {
                 .products(List.of(productDto, productDto1))
                 .build();
         Mockito.when(personService.createPerson(personDto)).thenReturn(person);
-        mockMvc.perform(post("/api/v1/person").contentType(MediaType.APPLICATION_JSON)
+        mockMvc.perform(post(url).contentType(MediaType.APPLICATION_JSON)
                 .content("{" +
                         "\"name\":\"Pepe\"," +
                         "\"email\":\"pepe@gmail.com\"," +
@@ -81,5 +83,14 @@ class PersonControllerTest {
                         "{\"name\":\"rice\",\"price\":\"5\"}]}"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name").value(person.getName()));
+    }
+
+    @Test
+    @DisplayName("Get persons should return a list of Persons")
+    public void getAllPersons() throws Exception {
+        mockMvc.perform(get(url))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$").isArray());
     }
 }
