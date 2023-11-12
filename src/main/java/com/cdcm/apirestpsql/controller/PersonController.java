@@ -22,4 +22,6 @@ public class PersonController {
        Person person = personService.createPerson(personDto);
        return ResponseEntity.ok(person);
     }
+
+
 }
