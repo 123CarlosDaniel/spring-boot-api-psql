@@ -1,8 +1,9 @@
 package com.cdcm.apirestpsql.service.imp;
 
 import com.cdcm.apirestpsql.dto.PersonDto;
-import com.cdcm.apirestpsql.entity.Person;
-import com.cdcm.apirestpsql.entity.Product;
+import com.cdcm.apirestpsql.exception.custom.ItemNotFoundException;
+import com.cdcm.apirestpsql.model.entity.Person;
+import com.cdcm.apirestpsql.model.entity.Product;
 import com.cdcm.apirestpsql.repository.PersonRepository;
 import com.cdcm.apirestpsql.service.interfaces.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ public class PersonServiceImp implements PersonService {
     @Autowired
     private PersonRepository personRepository;
     @Override
-    public Person createPerson(PersonDto personDto) {
+    public Person create(PersonDto personDto) {
         Person person = Person.builder()
                 .name(personDto.getName())
                 .email(personDto.getEmail())
@@ -44,7 +45,16 @@ public class PersonServiceImp implements PersonService {
     }
 
     @Override
-    public List<Person> getAll() {
+    public List<Person> findAll() {
         return personRepository.findAll();
+    }
+
+    @Override
+    public Person findById(Long id) {
+        Optional<Person> person = personRepository.findById(id);
+        if (person.isEmpty()) {
+            throw new ItemNotFoundException("Person not found");
+        }
+        return person.get();
     }
 }

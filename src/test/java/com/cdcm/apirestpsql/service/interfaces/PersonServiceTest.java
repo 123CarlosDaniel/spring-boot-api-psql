@@ -1,8 +1,8 @@
 package com.cdcm.apirestpsql.service.interfaces;
 
 import com.cdcm.apirestpsql.dto.PersonDto;
-import com.cdcm.apirestpsql.entity.Person;
-import com.cdcm.apirestpsql.entity.Product;
+import com.cdcm.apirestpsql.model.entity.Person;
+import com.cdcm.apirestpsql.model.entity.Product;
 import com.cdcm.apirestpsql.repository.PersonRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -56,7 +56,7 @@ class PersonServiceTest {
                 .build();
         Mockito.when(personRepository.save(personToSave)).thenReturn(personToSave);
 
-        Person result = personService.createPerson(personDto);
+        Person result = personService.create(personDto);
         assertEquals(personDto.getName(), result.getName());
         assertEquals(personDto.getEmail(), result.getEmail());
         verify(personRepository).save(personToSave);

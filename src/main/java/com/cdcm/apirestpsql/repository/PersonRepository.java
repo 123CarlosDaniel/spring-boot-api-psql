@@ -1,6 +1,6 @@
 package com.cdcm.apirestpsql.repository;
 
-import com.cdcm.apirestpsql.entity.Person;
+import com.cdcm.apirestpsql.model.entity.Person;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

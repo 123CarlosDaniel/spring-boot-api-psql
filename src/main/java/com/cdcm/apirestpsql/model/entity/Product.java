@@ -1,4 +1,4 @@
-package com.cdcm.apirestpsql.entity;
+package com.cdcm.apirestpsql.model.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;

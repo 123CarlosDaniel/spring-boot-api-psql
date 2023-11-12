@@ -2,8 +2,8 @@ package com.cdcm.apirestpsql.controller;
 
 import com.cdcm.apirestpsql.dto.PersonDto;
 import com.cdcm.apirestpsql.dto.ProductDto;
-import com.cdcm.apirestpsql.entity.Person;
-import com.cdcm.apirestpsql.entity.Product;
+import com.cdcm.apirestpsql.model.entity.Person;
+import com.cdcm.apirestpsql.model.entity.Product;
 import com.cdcm.apirestpsql.service.interfaces.PersonService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -18,7 +18,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.math.BigDecimal;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -72,7 +71,7 @@ class PersonControllerTest {
                 .password("123456")
                 .products(List.of(productDto, productDto1))
                 .build();
-        Mockito.when(personService.createPerson(personDto)).thenReturn(person);
+        Mockito.when(personService.create(personDto)).thenReturn(person);
         mockMvc.perform(post(url).contentType(MediaType.APPLICATION_JSON)
                 .content("{" +
                         "\"name\":\"Pepe\"," +

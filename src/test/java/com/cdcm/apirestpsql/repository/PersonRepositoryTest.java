@@ -1,7 +1,7 @@
 package com.cdcm.apirestpsql.repository;
 
-import com.cdcm.apirestpsql.entity.Person;
-import com.cdcm.apirestpsql.entity.Product;
+import com.cdcm.apirestpsql.model.entity.Person;
+import com.cdcm.apirestpsql.model.entity.Product;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
