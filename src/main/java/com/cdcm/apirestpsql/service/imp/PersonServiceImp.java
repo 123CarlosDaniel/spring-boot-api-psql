@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -40,5 +41,10 @@ public class PersonServiceImp implements PersonService {
     @Override
     public Optional<Person> findPersonById(Long id) {
         return personRepository.findById(id);
+    }
+
+    @Override
+    public List<Person> getAll() {
+        return personRepository.findAll();
     }
 }
