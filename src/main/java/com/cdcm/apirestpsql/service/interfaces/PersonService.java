@@ -8,7 +8,6 @@ import java.util.Optional;
 
 public interface PersonService {
     Person create(PersonDto personDto);
-    Optional<Person> findPersonById(Long id);
 
     List<Person> findAll();
 

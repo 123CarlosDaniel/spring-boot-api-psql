@@ -1,6 +1,7 @@
 package com.cdcm.apirestpsql.service.interfaces;
 
 import com.cdcm.apirestpsql.dto.PersonDto;
+import com.cdcm.apirestpsql.exception.custom.ItemNotFoundException;
 import com.cdcm.apirestpsql.model.entity.Person;
 import com.cdcm.apirestpsql.model.entity.Product;
 import com.cdcm.apirestpsql.repository.PersonRepository;
@@ -65,7 +66,16 @@ class PersonServiceTest {
     @Test
     public void findPersonById() {
         Long id = 1L;
-        Person person = personService.findPersonById(id).get();
+        Person person = personService.findById(id);
         assertEquals(person.getId(), id);
+    }
+
+    @Test
+    public void findPersonByIdThrowError() {
+        Long id = 20L;
+        ItemNotFoundException exception = assertThrows(ItemNotFoundException.class, () -> {
+            Person person = personService.findById(id);
+        });
+        assertEquals("Person not found", exception.getMessage());
     }
 }

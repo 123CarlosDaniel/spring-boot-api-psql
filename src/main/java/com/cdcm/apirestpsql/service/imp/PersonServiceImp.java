@@ -41,11 +41,6 @@ public class PersonServiceImp implements PersonService {
     }
 
     @Override
-    public Optional<Person> findPersonById(Long id) {
-        return personRepository.findById(id);
-    }
-
-    @Override
     public List<Person> findAll() {
         return personRepository.findAll();
     }
