@@ -2,9 +2,11 @@ package com.cdcm.apirestpsql.controller;
 
 import com.cdcm.apirestpsql.dto.PersonDto;
 import com.cdcm.apirestpsql.model.entity.Person;
+import com.cdcm.apirestpsql.model.payload.CustomResponse;
 import com.cdcm.apirestpsql.service.interfaces.PersonService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,21 +19,36 @@ public class PersonController {
     private PersonService personService;
 
     @PostMapping
-    public ResponseEntity<Person> createPerson(@RequestBody @Valid PersonDto personDto) {
+    public ResponseEntity<CustomResponse> createPerson(@RequestBody @Valid PersonDto personDto) {
        Person person = personService.create(personDto);
-       return ResponseEntity.ok(person);
+       return new ResponseEntity<>(CustomResponse.builder()
+               .error(false)
+               .data(person)
+               .status(201)
+               .errorData(null)
+               .build(), HttpStatus.CREATED);
     }
 
     @GetMapping
-    public ResponseEntity<List<Person>> getPersons() {
+    public ResponseEntity<CustomResponse> getPersons() {
         List<Person> personList = personService.findAll();
-        return ResponseEntity.ok(personList);
+        return new ResponseEntity<>(CustomResponse.builder()
+                .error(false)
+                .data(personList)
+                .status(200)
+                .errorData(null)
+                .build(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Person> getPerson(@PathVariable Long id) {
+    public ResponseEntity<CustomResponse> getPerson(@PathVariable Long id) {
         Person person = personService.findById(id);
-        return ResponseEntity.ok(person);
+        return new ResponseEntity<>(CustomResponse.builder()
+                .error(false)
+                .data(person)
+                .status(200)
+                .errorData(null)
+                .build(), HttpStatus.OK);
     }
 
 }
