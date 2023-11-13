@@ -80,8 +80,8 @@ class PersonControllerTest {
                         "\"products\":[" +
                         "{\"name\":\"oil\",\"price\":\"10\"}," +
                         "{\"name\":\"rice\",\"price\":\"5\"}]}"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.name").value(person.getName()));
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.data.name").value(person.getName()));
     }
 
     @Test
@@ -90,6 +90,6 @@ class PersonControllerTest {
         mockMvc.perform(get(url))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$").isArray());
+                .andExpect(jsonPath("$.data").isArray());
     }
 }
