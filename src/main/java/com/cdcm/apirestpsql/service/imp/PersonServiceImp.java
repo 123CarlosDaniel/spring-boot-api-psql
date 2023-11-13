@@ -7,6 +7,7 @@ import com.cdcm.apirestpsql.model.entity.Product;
 import com.cdcm.apirestpsql.repository.PersonRepository;
 import com.cdcm.apirestpsql.service.interfaces.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -53,7 +54,7 @@ public class PersonServiceImp implements PersonService {
     public Person findById(Long id) {
         Optional<Person> person = personRepository.findById(id);
         if (person.isEmpty()) {
-            throw new ItemNotFoundException("Person not found");
+            throw new ItemNotFoundException("Person not found", HttpStatus.NOT_FOUND);
         }
         return person.get();
     }
