@@ -74,7 +74,7 @@ class PersonServiceTest {
     public void findPersonByIdThrowError() {
         Long id = 20L;
         ItemNotFoundException exception = assertThrows(ItemNotFoundException.class, () -> {
-            Person person = personService.findById(id);
+            personService.findById(id);
         });
         assertEquals("Person not found", exception.getMessage());
     }

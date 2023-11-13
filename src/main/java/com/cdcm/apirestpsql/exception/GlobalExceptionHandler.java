@@ -1,7 +1,6 @@
 package com.cdcm.apirestpsql.exception;
 
 import com.cdcm.apirestpsql.exception.custom.CustomErrorException;
-import com.cdcm.apirestpsql.exception.custom.ItemNotFoundException;
 import com.cdcm.apirestpsql.model.payload.CustomError;
 import com.cdcm.apirestpsql.model.payload.CustomResponse;
 import org.springframework.http.HttpStatus;
